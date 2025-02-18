@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Restaurante</title>
+        <link rel="apple-touch-icon" sizes="180x180" href="img/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="img/">
+        <link rel="icon" href="img/favicon.ico" type="image/x-icon">
+        <!-- Link para o Bootstrap 5 -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+        <!-- Link para o Font Awesome (ícones) -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+        <style>
+          
+    
+            /* Personalização dos botões de filtro */
+            .nav-pills .nav-link {
+                border-radius: 30px;
+                font-size: 1.1rem;
+                font-weight: bold;
+                padding: 10px 20px;
+                text-transform: uppercase;
+                color: black !important; /* Define a cor preta para todos os textos das abas */
+            }
+    
+            .nav-pills .nav-link:hover {
+                background-color: #f39c12;
+                color: white;
+                transition: background-color 0.3s ease;
+            }
+    
+            .nav-pills .nav-link.active {
+                background-color: #f39c12;
+                color: white;
+            }
+    
+            /* Estilização dos cards */
+            .card {
+                transition: transform 0.3s ease-in-out;
+                border-radius: 1rem;
+                overflow: hidden;
+            }
+    
+            .card:hover {
+                transform: translateY(-10px);
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            }
+    
+            .card-title {
+                font-size: 1.2rem;
+                font-weight: bold;
+                color: #333;
+            }
+    
+            .card-text {
+                font-size: 1rem;
+                color: #777;
+            }
+    
+            .btn-warning {
+                background-color: #f39c12;
+                border: none;
+                color: white;
+                padding: 10px 20px;
+                font-size: 1rem;
+                border-radius: 25px;
+            }
+    
+            .btn-light {
+                background-color: #f8f9fa;
+                border: none;
+                color: #333;
+                padding: 10px;
+                font-size: 1.2rem;
+                border-radius: 50%;
+            }
+    
+            .btn-light:hover {
+                background-color: #e2e6ea;
+            }
+        </style>
+    </head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand d-flex align-items-center" href="#">
+                <img src="img/DALL·E 2025-02-16 16.31.36 - A stylish restaurant logo featuring the letters 'FL' in an elegant, modern font. The design should incorporate subtle food-related elements, such as a-Photoroom.png" alt="Firma Lima" class="me-2" width="50" height="50"> 
+                <span class="fw-bold fs-4">Firma Lima</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+    
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item">
+                        <a class="nav-link text-uppercase fw-semibold px-3 py-2 rounded nav-hover " href="index.html">Início</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-uppercase fw-semibold px-3 py-2 rounded nav-hover active" href="menu.html">Menu</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-uppercase fw-semibold px-3 py-2 rounded nav-hover" href="sobrenos.html">Sobre Nós</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-uppercase fw-semibold px-3 py-2 rounded nav-hover" href="reserva.html">Reserve uma Mesa</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-uppercase fw-semibold px-3 py-2 rounded nav-hover" href="contatos.html">Contatos</a>
+                    </li>
+                </ul>
+            </div>
+    
+            <div class="d-flex align-items-center">
+                <!-- Ícone de pesquisa que ativa a barra -->
+                <button class="btn btn-outline-light p-2 me-3" type="button" data-bs-toggle="collapse" data-bs-target="#searchBar">
+                    <i class="fas fa-search fs-5"></i>
+                </button>
+    
+                <!-- Barra de pesquisa oculta inicialmente -->
+                <div class="collapse me-3" id="searchBar">
+                    <input type="text" class="form-control" placeholder="Buscar...">
+                </div>
+    
+                <a href="cria.html" class="btn btn-outline-light p-2 me-3">
+                    <i class="fas fa-user fs-5"></i>
+                </a>
+                <a href="loja.html" class="btn btn-outline-light fw-semibold px-4 py-2 me-3">
+                    Peça Online
+                </a>
+                <a href="carrinho.html" class="btn btn-outline-light p-2">
+                    <i class="fas fa-shopping-cart fs-5"></i>
+                </a>
+            </div>
+        </div>
+    </nav>
+<!-- Cardápio -->
+<section id="menu" class="container mt-5">
+    <h2 class="text-center mb-4">Nosso Cardápio</h2>
+    
+    <!-- Navegação das Abas -->
+    <ul class="nav nav-pills justify-content-center mb-4">
+        <li class="nav-item">
+            <a class="nav-link active" id="todos-tab" data-bs-toggle="pill" href="#todos">Todos</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="hamburguer-tab" data-bs-toggle="pill" href="#hamburguer">Hambúrguer</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="pizza-tab" data-bs-toggle="pill" href="#pizza">Pizza</a>
+
+        </li>
+    </ul>
+<!-- Conteúdo das Abas -->
+<div class="tab-content">
+<!-- Todos os itens -->
+<div class="tab-pane fade show active" id="todos">
+<div class="row">
+    <div class="col-md-4 mb-4">
+        <div class="card shadow-lg rounded-3 border-0 overflow-hidden">
+            <img src="img/hamb-2.png" class="card-img-top" alt="Prato 1">
+            <div class="card-body text-center">
+                <h5 class="card-title text-uppercase fw-bold text-primary text-dark">Prato 1</h5>
+                <p class="card-text text-muted">Descrição do prato 1. Uma experiência de sabores únicos.</p>
+                <p class="price text-success fw-bold">R$ 29,90</p>
+                <div class="d-flex justify-content-center align-items-center mt-3">
+                    <button class="btn btn-warning shadow-sm text-white" onclick="comprarAgora(1, 'Prato 1', 29.90)">Compre Agora</button>
+                    <button class="btn btn-light ms-3 shadow-sm" onclick="adicionarAoCarrinho(1, 'Prato 1', 29.90)">
+                        <i class="fas fa-shopping-cart"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="card shadow-lg rounded-3 border-0 overflow-hidden">
+            <img src="img/hamb-8.png" class="card-img-top" alt="Prato 2">
+            <div class="card-body text-center">
+                <h5 class="card-title text-uppercase fw-bold text-primary text-dark">Prato 2</h5>
+                <p class="card-text text-muted">Descrição do prato 2. Uma experiência de sabores únicos.</p>
+                <p class="price text-success fw-bold">R$ 34,90</p>
+                <div class="d-flex justify-content-center align-items-center mt-3">
+                    <button class="btn btn-warning shadow-sm text-white" onclick="comprarAgora()">Compre Agora</button>
+                    <button class="btn btn-light ms-3 shadow-sm">
+                        <i class="fas fa-shopping-cart"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="card shadow-lg rounded-3 border-0 overflow-hidden">
+            <img src="img/hamb-5.png" class="card-img-top" alt="Prato 3">
+            <div class="card-body text-center">
+                <h5 class="card-title text-uppercase fw-bold text-primary text-dark">Prato 3</h5>
+                <p class="card-text text-muted">Descrição do prato 3. Uma experiência de sabores únicos.</p>
+                <p class="price text-success fw-bold">R$ 24,90</p>
+                <div class="d-flex justify-content-center align-items-center mt-3">
+                    <button class="btn btn-warning shadow-sm text-white" onclick="comprarAgora()">Compre Agora</button>
+                    <button class="btn btn-light ms-3 shadow-sm">
+                        <i class="fas fa-shopping-cart"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="card shadow-lg rounded-3 border-0 overflow-hidden">
+            <img src="img/pizza1.jpg" class="card-img-top" alt="Prato 4">
+            <div class="card-body text-center">
+                <h5 class="card-title text-uppercase fw-bold text-primary text-dark">Prato 4</h5>
+                <p class="card-text text-muted">Descrição do prato 4. Uma experiência de sabores únicos.</p>
+                <p class="price text-success fw-bold">R$ 39,90</p>
+                <div class="d-flex justify-content-center align-items-center mt-3">
+                    <button class="btn btn-warning shadow-sm text-white" onclick="comprarAgora()">Compre Agora</button>
+
+                    <button class="btn btn-light ms-3 shadow-sm">
+                        <i class="fas fa-shopping-cart"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="card shadow-lg rounded-3 border-0 overflow-hidden">
+            <img src="img/pizza2.jpg" class="card-img-top" alt="Prato 5">
+            <div class="card-body text-center">
+                <h5 class="card-title text-uppercase fw-bold text-primary text-dark">Prato 5</h5>
+                <p class="card-text text-muted">Descrição do prato 5. Uma experiência de sabores únicos.</p>
+                <p class="price text-success fw-bold">R$ 49,90</p>
+                <div class="d-flex justify-content-center align-items-center mt-3">
+                    <button class="btn btn-warning shadow-sm text-white" onclick="comprarAgora()">Compre Agora</button>
+                    <button class="btn btn-light ms-3 shadow-sm">
+                        <i class="fas fa-shopping-cart"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="card shadow-lg rounded-3 border-0 overflow-hidden">
+            <img src="img/pizza5.jpg" class="card-img-top" alt="Prato 6">
+            <div class="card-body text-center">
+                <h5 class="card-title text-uppercase fw-bold text-primary text-dark">Prato 6</h5>
+                <p class="card-text text-muted">Descrição do prato 6. Uma experiência de sabores únicos.</p>
+                <p class="price text-success fw-bold">R$ 59,90</p>
+                <div class="d-flex justify-content-center align-items-center mt-3">
+                    <button class="btn btn-warning shadow-sm text-white" onclick="comprarAgora()">Compre Agora</button>
+                    <button class="btn btn-light ms-3 shadow-sm">
+                        <i class="fas fa-shopping-cart"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+<div class="tab-content">
+    <!-- Aba de Hambúrgueres -->
+    <div class="tab-pane fade" id="hamburguer">
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-lg rounded-3 border-0 overflow-hidden">
+                    <img src="img/hamb-2.png" class="card-img-top" alt="Hambúrguer 1">
+                    <div class="card-body text-center">
+                        <h5 class="card-title text-uppercase fw-bold text-dark">Hambúrguer Clássico</h5>
+                        <p class="card-text text-muted">Delicioso hambúrguer artesanal.</p>
+                        <p class="price text-success fw-bold">R$ 29,90</p>
+                    
+                        <div class="d-flex justify-content-center align-items-center mt-3">
+                            <button class="btn btn-warning shadow-sm text-white">Compre Agora</button>
+                            <!-- Adicionar o evento no ícone do carrinho -->
+        <button class="btn btn-light ms-3 shadow-sm" onclick="addToCart('Prato 1', 29.90)">
+        <i class="fas fa-shopping-cart"></i>
+        </button>
+        
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-lg rounded-3 border-0 overflow-hidden">
+                    <img src="img/hamb-3.png" class="card-img-top" alt="Hambúrguer 2">
+                    <div class="card-body text-center">
+                        <h5 class="card-title text-uppercase fw-bold text-dark">Hambúrguer Bacon</h5>
+                        <p class="card-text text-muted">Carne suculenta com bacon crocante.</p>
+                        <p class="price text-success fw-bold">R$ 34,90</p>
+                        <button class="btn btn-warning shadow-sm text-white">Compre Agora</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-lg rounded-3 border-0 overflow-hidden">
+                    <img src="img/hamb-4.png" class="card-img-top" alt="Hambúrguer 3">
+                    <div class="card-body text-center">
+                        <h5 class="card-title text-uppercase fw-bold text-dark">Hambúrguer Especial</h5>
+                        <p class="card-text text-muted">Uma combinação especial de sabores.</p>
+                        <p class="price text-success fw-bold">R$ 39,90</p>
+                        <button class="btn btn-warning shadow-sm text-white" onclick="comprarAgora()">Compre Agora</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Aba de Pizzas -->
+    <div class="tab-pane fade" id="pizza">
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-lg rounded-3 border-0 overflow-hidden">
+                    <img src="img/pizza1.jpg" class="card-img-top" alt="Pizza 1">
+                    <div class="card-body text-center">
+                        <h5 class="card-title text-uppercase fw-bold text-dark">Pizza Margherita</h5>
+                        <p class="card-text text-muted">Mussarela, tomate e manjericão fresco.</p>
+                        <p class="price text-success fw-bold">R$ 39,90</p>
+                        <button class="btn btn-warning shadow-sm text-white">Compre Agora</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-lg rounded-3 border-0 overflow-hidden">
+                    <img src="img/pizza2.jpg" class="card-img-top" alt="Pizza 2">
+                    <div class="card-body text-center">
+                        <h5 class="card-title text-uppercase fw-bold text-dark">Pizza Pepperoni</h5>
+                        <p class="card-text text-muted">Pepperoni crocante e queijo derretido.</p>
+                        <p class="price text-success fw-bold">R$ 44,90</p>
+                        <button class="btn btn-warning shadow-sm text-white" onclick="comprarAgora()">Compre Agora</button>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-lg rounded-3 border-0 overflow-hidden">
+                    <img src="img/pizza3.jpg" class="card-img-top" alt="Pizza 3">
+                    <div class="card-body text-center">
+                        <h5 class="card-title text-uppercase fw-bold text-dark">Pizza Quatro Queijos</h5>
+                        <p class="card-text text-muted">Mistura de queijos especiais.</p>
+                        <p class="price text-success fw-bold">R$ 49,90</p>
+                        <button class="btn btn-warning shadow-sm text-white" onclick="comprarAgora()">Compre Agora</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+<footer class="bg-dark text-white py-4 mt-5">
+    <div class="container">
+        <div class="row">
+            <!-- Informações de contato -->
+            <div class="col-md-4 mb-3">
+                <h5>Contato</h5>
+                <ul class="list-unstyled">
+                    <li><i class="fas fa-phone-alt"></i> (11) 1234-5678</li>
+                    <li><i class="fas fa-envelope"></i> contato@firma-lima.com.br</li>
+                    <li><i class="fas fa-map-marker-alt"></i> Rua Exemplo, 123, São Paulo, SP</li>
+                </ul>
+            </div>
+
+            <!-- Redes sociais -->
+            <div class="col-md-4 mb-3">
+                <h5>Redes Sociais</h5>
+                <ul class="list-unstyled">
+                    <li>
+                        <a href="#" class="text-white" target="_blank"><i class="fab fa-facebook-f"></i> Facebook</a>
+                    </li>
+                    <li>
+                        <a href="https://www.instagram.com/lczviana?igsh=MWRyd3gzN3JmaTE1" class="text-white" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
+                    </li>
+                    <li>
+                        <a href="" class="text-white" target="_blank"><i class="fab fa-twitter"></i> Twitter</a>
+                    </li>
+                </ul>
+            </div>
+        
+
+            <!-- Links úteis -->
+            <div class="col-md-4 mb-3">
+                <h5>Links úteis</h5>
+                <ul class="list-unstyled">
+                    <li><a href="#" class="text-white">Cardápio</a></li>
+                    <li><a href="#" class="text-white">Sobre nós</a></li>
+                    <li><a href="#" class="text-white">Trabalhe Conosco</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12 text-center mt-4">
+                <p class="mb-0">&copy; 2025 Firma Lima - Todos os direitos reservados</p>
+            </div>
+        </div>
+    </div>
+</footer>
+<script src="js/bootstrap.js"></script>
+<script src="js/cart.js"></script>
+</body>
+</html>

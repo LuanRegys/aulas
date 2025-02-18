@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurante</title>
+    
+    <link rel="apple-touch-icon" sizes="180x180" href="img/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="img/">
+    <link rel="icon" href="img/favicon.ico" type="image/x-icon">
+    <!-- Link para o Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Link para o Font Awesome (ícones) -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        
+        /* A animação de transição suave */
+        .carousel-item {
+            transition: transform 1s ease-in-out;
+        }
+
+        /* Manter a imagem de fundo do banner cobrindo toda a tela */
+        .carousel-item img {
+            min-height: 100vh;
+            object-fit: cover;
+            width: 100%;
+        }
+
+        .banner-text {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+            padding-left: 20px;
+            z-index: 3;
+            color: white;
+            font-size: 2rem;
+        }
+
+        .banner-img {
+            position: absolute;
+            top: 50%;
+            right: 0;
+            transform: translateY(-50%);
+            max-width: 800px;
+            z-index: 1;
+        }
+
+       
+        
+
+       
+
+        /* Personalização dos botões de filtro */
+        .nav-pills .nav-link {
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            padding: 10px 20px;
+            text-transform: uppercase;
+            color: black !important; /* Define a cor preta para todos os textos das abas */
+        }
+
+        .nav-pills .nav-link:hover {
+            background-color: #f39c12;
+            color: white;
+            transition: background-color 0.3s ease;
+        }
+
+        .nav-pills .nav-link.active {
+            background-color: #f39c12;
+            color: white;
+        }
+
+        /* Estilização dos cards */
+        .card {
+            transition: transform 0.3s ease-in-out;
+            border-radius: 1rem;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .card-text {
+            font-size: 1rem;
+            color: #777;
+        }
+
+        .btn-warning {
+            background-color: #f39c12;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            font-size: 1rem;
+            border-radius: 25px;
+        }
+
+        .btn-light {
+            background-color: #f8f9fa;
+            border: none;
+            color: #333;
+            padding: 10px;
+            font-size: 1.2rem;
+            border-radius: 50%;
+        }
+
+        .btn-light:hover {
+            background-color: #e2e6ea;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <img src="img/DALL·E 2025-02-16 16.31.36 - A stylish restaurant logo featuring the letters 'FL' in an elegant, modern font. The design should incorporate subtle food-related elements, such as a-Photoroom.png" alt="Firma Lima" class="me-2" width="50" height="50"> 
+                <span class="fw-bold fs-4">Firma Lima</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+    
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item">
+                        <a class="nav-link text-uppercase fw-semibold px-3 py-2 rounded nav-hover active" href="index.html">Início</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-uppercase fw-semibold px-3 py-2 rounded nav-hover" href="menu.html">Menu</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-uppercase fw-semibold px-3 py-2 rounded nav-hover" href="sobrenos.html">Sobre Nós</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-uppercase fw-semibold px-3 py-2 rounded nav-hover" href="reserva.html">Reserve uma Mesa</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-uppercase fw-semibold px-3 py-2 rounded nav-hover" href="contatos.html">Contatos</a>
+                    </li>
+                </ul>
+            </div>
+    
+            <div class="d-flex align-items-center">
+                <!-- Ícone de pesquisa que ativa a barra -->
+                <button class="btn btn-outline-light p-2 me-3" type="button" data-bs-toggle="collapse" data-bs-target="#searchBar">
+                    <i class="fas fa-search fs-5"></i>
+                </button>
+    
+                <!-- Barra de pesquisa oculta inicialmente -->
+                <div class="collapse me-3" id="searchBar">
+                    <input type="text" class="form-control" placeholder="Buscar...">
+                </div>
+    
+                <a href="cria.html" class="btn btn-outline-light p-2 me-3">
+                    <i class="fas fa-user fs-5"></i>
+                </a>
+                <a href="loja.html" class="btn btn-outline-light fw-semibold px-4 py-2 me-3">
+                    Peça Online
+                </a>
+                <a href="carrinho.html" class="btn btn-outline-light p-2">
+                    <i class="fas fa-shopping-cart fs-5"></i>
+                </a>
+            </div>
+        </div>
+    </nav>
+    
+    
+    
+
+    <!-- Banner com carrossel -->
+    <div id="carouselBanner" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="img/header-bg (1).png" class="d-block w-100" alt="Banner Restaurante">
+                <div class="banner-text">
+                    <h1>Firma Lima</h1>
+                    <p>Experiência gastronômica única para você.</p>
+                </div>
+                <div class="banner-img">
+                    <img src="img/Hamburguer-Png-Photoroom.png" class="img-fluid rounded" alt="Prato de comida">
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="img/header-bg (1).png" class="d-block w-100" alt="Banner Restaurante">
+                <div class="banner-text">
+                    <h1>Desfrute do Melhor</h1>
+                    <p>Sabores incríveis para todos os gostos.</p>
+                </div>
+                <div class="banner-img">
+                    <img src="img/Hamburguer-Png-Photoroom.png" class="img-fluid rounded" alt="Prato de comida">
+                </div>
+            </div>
+        </div>
+        <!-- Indicadores (bolinhas) do carrossel -->
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselBanner" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselBanner" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        </div>
+    </div>
+
+    <!-- Conteúdo que aparece após o carrossel -->
+    <section class="container mt-5">
+        <h2 class="text-center mb-4">Promoção do Dia</h2>
+        <div class="row text-center">
+            <div class="col-md-6 d-flex flex-column align-items-center">
+                <div class="card w-75">
+                    <img src="img/hamb-2.png" class="card-img-top" alt="Hamburguer" style="height: 250px; object-fit: cover;">
+                    <div class="card-body d-flex flex-column align-items-center">
+                        <h5 class="card-title">Hambúrguer na Promoção</h5>
+                        <a href="pizzapromo.html" class="btn btn-warning mt-auto">Peça Agora</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 d-flex flex-column align-items-center">
+                <div class="card w-75">
+                    <img src="img/pizza1.jpg" class="card-img-top" alt="Pizza" style="height: 250px; object-fit: cover;">
+                    <div class="card-body d-flex flex-column align-items-center">
+                        <h5 class="card-title">Pizza na Promoção</h5>
+                        <a href="promocao.html" class="btn btn-warning mt-auto">Peça Agora</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+        <!-- Cardápio -->
+        <section id="menu" class="container mt-5">
+            <h2 class="text-center mb-4">Nosso Cardápio</h2>
+            
+            <!-- Navegação das Abas -->
+            <ul class="nav nav-pills justify-content-center mb-4">
+                <li class="nav-item">
+                    <a class="nav-link active" id="todos-tab" data-bs-toggle="pill" href="#todos">Todos</a>
+                </li>
+            </ul>
+<!-- Conteúdo das Abas -->
+<div class="tab-content">
+    <!-- Todos os itens -->
+    <div class="tab-pane fade show active" id="todos">
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-lg rounded-3 border-0 overflow-hidden">
+                    <img src="img/hamb-2.png" class="card-img-top" alt="Prato 1">
+                    <div class="card-body text-center">
+                        <h5 class="card-title text-uppercase fw-bold text-primary text-dark">Prato 1</h5>
+                        <p class="card-text text-muted">Descrição do prato 1. Uma experiência de sabores únicos.</p>
+                        <p class="price text-success fw-bold">R$ 29,90</p>
+                        <div class="d-flex justify-content-center align-items-center mt-3">
+                            <button class="btn btn-warning shadow-sm text-white">Compre Agora</button>
+                            <!-- Adicionar o evento no ícone do carrinho -->
+<button class="btn btn-light ms-3 shadow-sm" onclick="addToCart('Prato 1', 29.90)">
+    <i class="fas fa-shopping-cart"></i>
+</button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-lg rounded-3 border-0 overflow-hidden">
+                    <img src="img/hamb-8.png" class="card-img-top" alt="Prato 2">
+                    <div class="card-body text-center">
+                        <h5 class="card-title text-uppercase fw-bold text-primary text-dark">Prato 2</h5>
+                        <p class="card-text text-muted">Descrição do prato 2. Uma experiência de sabores únicos.</p>
+                        <p class="price text-success fw-bold">R$ 34,90</p>
+                        <div class="d-flex justify-content-center align-items-center mt-3">
+                            <button class="btn btn-warning shadow-sm text-white">Compre Agora</button>
+                            <button class="btn btn-light ms-3 shadow-sm">
+                                <i class="fas fa-shopping-cart"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-lg rounded-3 border-0 overflow-hidden">
+                    <img src="img/hamb-5.png" class="card-img-top" alt="Prato 3">
+                    <div class="card-body text-center">
+                        <h5 class="card-title text-uppercase fw-bold text-primary text-dark">Prato 3</h5>
+                        <p class="card-text text-muted">Descrição do prato 3. Uma experiência de sabores únicos.</p>
+                        <p class="price text-success fw-bold">R$ 24,90</p>
+                        <div class="d-flex justify-content-center align-items-center mt-3">
+                            <button class="btn btn-warning shadow-sm text-white">Compre Agora</button>
+                            <button class="btn btn-light ms-3 shadow-sm">
+                                <i class="fas fa-shopping-cart"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-lg rounded-3 border-0 overflow-hidden">
+                    <img src="img/pizza1.jpg" class="card-img-top" alt="Prato 4">
+                    <div class="card-body text-center">
+                        <h5 class="card-title text-uppercase fw-bold text-primary text-dark">Prato 4</h5>
+                        <p class="card-text text-muted">Descrição do prato 4. Uma experiência de sabores únicos.</p>
+                        <p class="price text-success fw-bold">R$ 39,90</p>
+                        <div class="d-flex justify-content-center align-items-center mt-3">
+                            <button class="btn btn-warning shadow-sm text-white">Compre Agora</button>
+                            <button class="btn btn-light ms-3 shadow-sm">
+                                <i class="fas fa-shopping-cart"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-lg rounded-3 border-0 overflow-hidden">
+                    <img src="img/pizza2.jpg" class="card-img-top" alt="Prato 5">
+                    <div class="card-body text-center">
+                        <h5 class="card-title text-uppercase fw-bold text-primary text-dark">Prato 5</h5>
+                        <p class="card-text text-muted">Descrição do prato 5. Uma experiência de sabores únicos.</p>
+                        <p class="price text-success fw-bold">R$ 49,90</p>
+                        <div class="d-flex justify-content-center align-items-center mt-3">
+                            <button class="btn btn-warning shadow-sm text-white">Compre Agora</button>
+                            <button class="btn btn-light ms-3 shadow-sm">
+                                <i class="fas fa-shopping-cart"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-lg rounded-3 border-0 overflow-hidden">
+                    <img src="img/pizza5.jpg" class="card-img-top" alt="Prato 6">
+                    <div class="card-body text-center">
+                        <h5 class="card-title text-uppercase fw-bold text-primary text-dark">Prato 6</h5>
+                        <p class="card-text text-muted">Descrição do prato 6. Uma experiência de sabores únicos.</p>
+                        <p class="price text-success fw-bold">R$ 59,90</p>
+                        <div class="d-flex justify-content-center align-items-center mt-3">
+                            <button class="btn btn-warning shadow-sm text-white">Compre Agora</button>
+                            <button class="btn btn-light ms-3 shadow-sm">
+                                <i class="fas fa-shopping-cart"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+  <!-- Banner com imagem grande e texto -->
+<div class="container-fluid" style="position: relative; height: 100vh; display: flex; align-items: center; background-image: url('img/header-bg (1).png'); background-size: cover; background-position: center;">
+    <!-- Texto à esquerda -->
+    <div class="d-flex flex-column align-items-start justify-content-center" style="flex: 1; padding-left: 50px; color: white;">
+        <h1>SOBRE NOS</h1>
+        <p>"A Firma Lima é um restaurante dedicado a proporcionar uma experiência gastronômica única, combinando sabores autênticos e atendimento impecável em um ambiente acolhedor e sofisticado."
+
+            Você pode adaptar conforme o estilo do seu restaurante, se precisar de algo mais específico ou informal, só avisar!</p>
+    </div>
+    <!-- Imagem grande à direita -->
+    <div class="d-flex justify-content-center align-items-center" style="flex: 1;">
+        <img src="img/sobre-Photoroom.png" style="max-width: 80%; object-fit: cover;" alt="Imagem de Hambúrguer">
+    </div>
+</div>
+
+
+</div>
+<section id="reserva" class="container mt-5">
+    <h2 class="text-center mb-4">Reserve sua Mesa</h2>
+    
+    <!-- Caixa de reserva com borda estilizada -->
+    <div class="reservation-box p-4 border rounded shadow-lg bg-light">
+        <form>
+            <div class="row">
+                <!-- Nome -->
+                <div class="col-md-6 mb-3">
+                    <label for="nome" class="form-label">Nome Completo</label>
+                    <input type="text" class="form-control" id="nome" placeholder="Digite seu nome completo" required>
+                </div>
+
+                <!-- Email -->
+                <div class="col-md-6 mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" placeholder="Digite seu email" required>
+                </div>
+
+                <!-- Número de celular -->
+                <div class="col-md-6 mb-3">
+                    <label for="telefone" class="form-label">Número de Celular</label>
+                    <input type="tel" class="form-control" id="telefone" placeholder="Digite seu número de celular" pattern="[0-9]{10,11}" inputmode="numeric" required>
+                   
+                </div>
+
+                <!-- Quantas pessoas -->
+                <div class="col-md-6 mb-3">
+                    <label for="pessoas" class="form-label">Quantas Pessoas?</label>
+                    <select class="form-control" id="pessoas" required>
+                        <option value="">Escolha o número de pessoas</option>
+                        <option value="2">2 Pessoas</option>
+                        <option value="3">3 Pessoas</option>
+                        <option value="4">4 Pessoas</option>
+                        <option value="5">5 Pessoas</option>
+                    </select>
+                </div>
+
+                <!-- Botão de reserva -->
+                <div class="col-12 text-center">
+                    <button type="submit" class="btn btn-warning text-white">Reservar Agora</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+<section id="feedback" class="container mt-5">
+    <h2 class="text-center mb-4">O que nossos clientes dizem</h2>
+
+        <!-- Feedbacks -->
+        <div class="row">
+            <!-- Feedback do Cliente 1 -->
+            <div class="col-md-6 mb-4">
+                <div class="card shadow-sm border-0 rounded">
+                    <div class="card-body text-center">
+                        <img src="img/venom.jpg" class="rounded-circle mb-3" alt="Cliente 1" style="width: 100px; height: 100px; object-fit: cover;">
+                        <h5 class="card-title">Venom Exemtreme</h5>
+                        <p class="card-text">"A experiência no Firma Lima foi incrível! O ambiente é acolhedor e os pratos são deliciosos. Recomendo a todos!"</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Feedback do Cliente 2 -->
+            <div class="col-md-6 mb-4">
+                <div class="card shadow-sm border-0 rounded">
+                    <div class="card-body text-center">
+                        <img src="img/edukof.jpg" class="rounded-circle mb-3" alt="Cliente 2" style="width: 100px; height: 100px; object-fit: cover;">
+                        <h5 class="card-title">edukof</h5>
+                        <p class="card-text">"Simplesmente sensacional! O atendimento foi excelente e os pratos são feitos com muito carinho. Voltarei com certeza!"</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+<!-- Rodapé -->
+<footer class="bg-dark text-white py-4 mt-5">
+    <div class="container">
+        <div class="row">
+            <!-- Informações de contato -->
+            <div class="col-md-4 mb-3">
+                <h5>Contato</h5>
+                <ul class="list-unstyled">
+                    <li><i class="fas fa-phone-alt"></i> (11) 1234-5678</li>
+                    <li><i class="fas fa-envelope"></i> contato@firma-lima.com.br</li>
+                    <li><i class="fas fa-map-marker-alt"></i> Rua Exemplo, 123, São Paulo, SP</li>
+                </ul>
+            </div>
+
+            <!-- Redes sociais -->
+            <div class="col-md-4 mb-3">
+                <h5>Redes Sociais</h5>
+                <ul class="list-unstyled">
+                    <li>
+                        <a href="#" class="text-white" target="_blank"><i class="fab fa-facebook-f"></i> Facebook</a>
+                    </li>
+                    <li>
+                        <a href="#" class="text-white" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
+                    </li>
+                    <li>
+                        <a href="#" class="text-white" target="_blank"><i class="fab fa-twitter"></i> Twitter</a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Links úteis -->
+            <div class="col-md-4 mb-3">
+                <h5>Links úteis</h5>
+                <ul class="list-unstyled">
+                    <li><a href="#" class="text-white">Cardápio</a></li>
+                    <li><a href="#" class="text-white">Sobre nós</a></li>
+                    <li><a href="#" class="text-white">Trabalhe Conosco</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12 text-center mt-4">
+                <p class="mb-0">&copy; 2025 Firma Lima - Todos os direitos reservados</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+    <!-- Link para o JavaScript do Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/cart.js"></script>
+   
+</body>
+
+</html>
